@@ -70,7 +70,7 @@ function injectKeyboardVisualizer() {
           : keyLabel === "Backspace" || keyLabel === "Enter"
           ? "100px"
           : "40px";
-      key.style.height = "40px";
+      key.style.height = "20px";
       key.style.display = "flex";
       key.style.justifyContent = "center";
       key.style.alignItems = "center";
@@ -84,6 +84,54 @@ function injectKeyboardVisualizer() {
   });
 
   container.appendChild(keyboardContent);
+
+  // Add a container for the arrow keys
+  const arrowContainer = document.createElement("div");
+  arrowContainer.style.position = "absolute";
+  arrowContainer.style.right = "10px";
+  arrowContainer.style.bottom = "10px";
+  arrowContainer.style.display = "flex";
+  arrowContainer.style.flexDirection = "column";
+  arrowContainer.style.alignItems = "center";
+  arrowContainer.style.gap = "5px";
+
+  // Arrow keys layout
+  const arrowKeys = [
+    { label: "↑", key: "ArrowUp" },
+    { label: "←", key: "ArrowLeft" },
+    { label: "↓", key: "ArrowDown" },
+    { label: "→", key: "ArrowRight" },
+  ];
+
+  arrowKeys.forEach(({ label, key }, index) => {
+    const arrowKey = document.createElement("div");
+    arrowKey.className = "keyboard-key";
+    arrowKey.textContent = label;
+    arrowKey.style.backgroundColor = "#444";
+    arrowKey.style.color = "white";
+    arrowKey.style.textAlign = "center";
+    arrowKey.style.borderRadius = "5px";
+    arrowKey.style.width = "40px";
+    arrowKey.style.height = "40px";
+    arrowKey.style.display = "flex";
+    arrowKey.style.justifyContent = "center";
+    arrowKey.style.alignItems = "center";
+    arrowKey.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.3)";
+    arrowKey.setAttribute("data-key", key);
+
+    if (index === 0) {
+      arrowContainer.appendChild(arrowKey); // Add ↑
+    } else {
+      const bottomRow = arrowContainer.querySelector(".bottom-row") || document.createElement("div");
+      bottomRow.className = "bottom-row";
+      bottomRow.style.display = "flex";
+      bottomRow.style.gap = "5px";
+      if (!arrowContainer.contains(bottomRow)) arrowContainer.appendChild(bottomRow);
+      bottomRow.appendChild(arrowKey); // Add ← ↓ →
+    }
+  });
+
+  container.appendChild(arrowContainer);
   document.body.appendChild(container);
 
   // Event listener for dragging resizer
