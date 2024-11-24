@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Keyboard Visualizer",
+  "version": "1.0",
+  "description": "Adds a keyboard visualizer to the bottom of the page with resizable functionality.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "Keyboard Visualizer",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
